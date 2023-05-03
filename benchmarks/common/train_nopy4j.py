@@ -203,6 +203,7 @@ def run(shield,
         for i in range(times):
             for penalty in penalties:
                 env.set_penalty(penalty)
+                env.env._max_episode_steps = ep_length
                 plabel = f"{label}-{i}"
                 train(env=env,
                     label=plabel,
@@ -265,7 +266,7 @@ def train(env, label, game, callback, total_steps=int(5e5), learning_rate=1e-4, 
     eval_callback = EvalCallback(eval_env=model.get_env() if eval_env is None else eval_env,
                                  callback_on_new_best=SaveBestShieldCallback(),
                                  best_model_save_path=os.path.join(log_dir, 'best_model'),
-                                 n_eval_episodes=30,
+                                 n_eval_episodes=40,
                                  eval_freq=10000, verbose=1,
                                  deterministic=True, render=False)
                                  

@@ -187,6 +187,14 @@ class WaterTankEnv(gym.Env):
                 'is_success': is_success, 'is_crash': self.done and not is_success}
         return self.state, reward, self.done, info
 
+    def disabled(self, action_list):
+        ban_action = []
+        for i in [0,1]:
+            if i not in action_list:
+                ban_action.apeend(i)
+
+        return ban_action
+
 
 class WaterTankEnvC20I10(WaterTankEnv):
     def __init__(self):
