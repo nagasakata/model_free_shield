@@ -122,6 +122,7 @@ class PacmanEnv(gym.Env):
         for i in self.action_assign[0]:
             if self.action_assign[0][i] == assigned_transition_dict:
                 info['p1_action'] = i
+                print(self.action_assign[0][i])
                 break
 
         cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False,
