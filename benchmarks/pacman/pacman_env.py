@@ -89,13 +89,13 @@ class PacmanEnv(gym.Env):
                                     'UP_WALL':False, 'DOWN_WALL': False}
 
         for pos in enemy_position_list:
-            if (player_position[0] < pos[0]) & (pos[0] - player_position[0] < allowed_side) | (abs(pos[1] - player_position[1]) < allowed_vertival2):
+            if (player_position[0] < pos[0]) & (pos[0] - player_position[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival2):
                 assigned_transition_dict['RIGHT_APPROACH'] = True
-            if (player_position[0] > pos[0]) & (player_position[0] - pos[0] < allowed_side) | (abs(pos[1] - player_position[1]) < allowed_vertival2):
+            if (player_position[0] > pos[0]) & (player_position[0] - pos[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival2):
                 assigned_transition_dict['LEFT_APPROACH'] = True
-            if (player_position[1] < pos[1]) & (pos[1] - player_position[1] < allowed_vertival) | (abs(pos[0] - player_position[0]) < allowed_side2):
+            if (player_position[1] < pos[1]) & (pos[1] - player_position[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side2):
                 assigned_transition_dict['DOWN_APPROACH'] = True
-            if (player_position[1] > pos[1]) & (player_position[1] - pos[1] < allowed_vertival) | (abs(pos[0] - player_position[0]) < allowed_side2):
+            if (player_position[1] > pos[1]) & (player_position[1] - pos[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side2):
                 assigned_transition_dict['UP_APPROACH'] = True
         
 
@@ -103,16 +103,16 @@ class PacmanEnv(gym.Env):
         print(observation[player_position[1]+12][player_position[0] - 12][0], observation[player_position[1]+12][player_position[0]-5][0])
         print(observation[player_position[1]][player_position[0] - 13][0], observation[player_position[1]+11][player_position[0]-13][0])
         print(observation[player_position[1]][player_position[0] - 4][0], observation[player_position[1]+11][player_position[0]-4][0])
-        if observation[player_position[1]-1][player_position[0] - 12][0] == 228 & observation[player_position[1]-1][player_position[0]-5][0] == 228:
+        if observation[player_position[1]-1][player_position[0] - 12][0] == 228 | observation[player_position[1]-1][player_position[0]-5][0] == 228:
             assigned_transition_dict['UP_WALL'] = True
 
-        if observation[player_position[1]+12][player_position[0] - 12][0] == 228 & observation[player_position[1]+12][player_position[0]-5][0] == 228:
+        if observation[player_position[1]+12][player_position[0] - 12][0] == 228 | observation[player_position[1]+12][player_position[0]-5][0] == 228:
             assigned_transition_dict['DOWN_WALL'] = True
 
-        if observation[player_position[1]][player_position[0] - 13][0] == 228 & observation[player_position[1]+11][player_position[0]-13][0] == 228:
+        if observation[player_position[1]][player_position[0] - 13][0] == 228 | observation[player_position[1]+11][player_position[0]-13][0] == 228:
             assigned_transition_dict['LEFT_WALL'] = True
 
-        if observation[player_position[1]][player_position[0] - 4][0] == 228 & observation[player_position[1]+11][player_position[0]-4][0] == 228:
+        if observation[player_position[1]][player_position[0] - 4][0] == 228 | observation[player_position[1]+11][player_position[0]-4][0] == 228:
             assigned_transition_dict['RIGHT_WALL'] = True
 
 
