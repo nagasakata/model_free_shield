@@ -103,16 +103,16 @@ class PacmanEnv(gym.Env):
         print(observation[player_position[1]+12][player_position[0] - 12][0], observation[player_position[1]+12][player_position[0]-5][0])
         print(observation[player_position[1]][player_position[0] - 13][0], observation[player_position[1]+11][player_position[0]-13][0])
         print(observation[player_position[1]][player_position[0] - 4][0], observation[player_position[1]+11][player_position[0]-4][0])
-        if observation[player_position[1]-1][player_position[0] - 12][0] == 228 | observation[player_position[1]-1][player_position[0]-5][0] == 228:
+        if (observation[player_position[1]-1][player_position[0] - 12][0] == 228) | (observation[player_position[1]-1][player_position[0]-5][0]) == 228:
             assigned_transition_dict['UP_WALL'] = True
 
-        if observation[player_position[1]+12][player_position[0] - 12][0] == 228 | observation[player_position[1]+12][player_position[0]-5][0] == 228:
+        if (observation[player_position[1]+12][player_position[0] - 12][0] == 228) | (observation[player_position[1]+12][player_position[0]-5][0] == 228):
             assigned_transition_dict['DOWN_WALL'] = True
 
-        if observation[player_position[1]][player_position[0] - 13][0] == 228 | observation[player_position[1]+11][player_position[0]-13][0] == 228:
+        if (observation[player_position[1]][player_position[0] - 13][0] == 228) | (observation[player_position[1]+11][player_position[0]-13][0] == 228):
             assigned_transition_dict['LEFT_WALL'] = True
 
-        if observation[player_position[1]][player_position[0] - 4][0] == 228 | observation[player_position[1]+11][player_position[0]-4][0] == 228:
+        if (observation[player_position[1]][player_position[0] - 4][0] == 228) | (observation[player_position[1]+11][player_position[0]-4][0] == 228):
             assigned_transition_dict['RIGHT_WALL'] = True
 
 
