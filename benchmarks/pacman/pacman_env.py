@@ -21,7 +21,7 @@ class PacmanEnv(gym.Env):
         self.action_space = self.env.action_space
         self.io_manager = PacmanInputOutputManager()
         self.action_assign = get_assigned_transition(ltl_to_dfa_spot(safety_formula()), 
-                                                          ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH"], 
+                                                          ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"], 
                                                           ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
         self.die = 0
         self.max_score = 0
@@ -58,6 +58,7 @@ class PacmanEnv(gym.Env):
         print("hey valid_model")
 
     def step(self, player1_action_int: int):
+        print("hey! hey!")
         observation, reward, done, info = self.env.step(player1_action_int)
         self.count += 1
         #print(self.count, "回目")
@@ -83,17 +84,38 @@ class PacmanEnv(gym.Env):
         
         allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 15, 15, 10, 10
         assigned_transition_dict = {'LEFT_APPROACH': False, 'RIGHT_APPROACH': False,
-                                    'UP_APPROACH': False, 'DOWN_APPROACH': False}
+                                    'UP_APPROACH': False, 'DOWN_APPROACH': False,
+                                    'LEFT_WALL': False, 'RIGHT_WALL': False,
+                                    'UP_WALL':False, 'DOWN_WALL': False}
+
         for pos in enemy_position_list:
-            if (player_position[0] < pos[0]) & (pos[0] - player_position[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival2):
+            if (player_position[0] < pos[0]) & (pos[0] - player_position[0] < allowed_side) | (abs(pos[1] - player_position[1]) < allowed_vertival2):
                 assigned_transition_dict['RIGHT_APPROACH'] = True
-            if (player_position[0] > pos[0]) & (player_position[0] - pos[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival2):
+            if (player_position[0] > pos[0]) & (player_position[0] - pos[0] < allowed_side) | (abs(pos[1] - player_position[1]) < allowed_vertival2):
                 assigned_transition_dict['LEFT_APPROACH'] = True
-            if (player_position[1] < pos[1]) & (pos[1] - player_position[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side2):
+            if (player_position[1] < pos[1]) & (pos[1] - player_position[1] < allowed_vertival) | (abs(pos[0] - player_position[0]) < allowed_side2):
                 assigned_transition_dict['DOWN_APPROACH'] = True
-            if (player_position[1] > pos[1]) & (player_position[1] - pos[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side2):
+            if (player_position[1] > pos[1]) & (player_position[1] - pos[1] < allowed_vertival) | (abs(pos[0] - player_position[0]) < allowed_side2):
                 assigned_transition_dict['UP_APPROACH'] = True
         
+
+        print(observation[player_position[1]-1][player_position[0] - 12][0], observation[player_position[1]-1][player_position[0]-5)
+        print(observation[player_position[1]+12][player_position[0] - 12][0], observation[player_position[1]+12][player_position[0]-5][0])
+        print(observation[player_position[1]][player_position[0] - 13][0], observation[player_position[1]+11][player_position[0]-13][0])
+        print(observation[player_position[1]][player_position[0] - 4][0], observation[player_position[1]+11][player_position[0]-4][0])
+        if observation[player_position[1]-1][player_position[0] - 12][0] == 228 & observation[player_position[1]-1][player_position[0]-5][0] == 228:
+            assigned_transition_dict['UP_WALL'] = True
+
+        if observation[player_position[1]+12][player_position[0] - 12][0] == 228 & observation[player_position[1]+12][player_position[0]-5][0] == 228:
+            assigned_transition_dict['DOWN_WALL'] = True
+
+        if observation[player_position[1]][player_position[0] - 13][0] == 228 & observation[player_position[1]+11][player_position[0]-13][0] == 228:
+            assigned_transition_dict['LEFT_WALL'] = True
+
+        if observation[player_position[1]][player_position[0] - 4][0] == 228 & observation[player_position[1]+11][player_position[0]-4][0] == 228:
+            assigned_transition_dict['RIGHT_WALL'] = True
+
+
         print("pacman position", player_position, "enemy position", enemy_position_list, player1_action_int)
         print(assigned_transition_dict)
 
