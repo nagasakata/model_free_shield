@@ -38,6 +38,7 @@ def shield_policy(model, eval_env: ModelFreeShieldWrapper = None,
                     disabled = []
             else:
                 disabled = env.get_shield_disabled_actions()
+                print("this is disabled action", disabled)
             if len(disabled) < len(mean_actions[idx]):
                 for dis in disabled:
                     mean_actions[idx][dis] = float('-inf')

@@ -81,20 +81,20 @@ class PacmanEnv(gym.Env):
                                (info['labels']['enemy_pinky_x'], info['labels']['enemy_pinky_y']),
                                (info['labels']['enemy_blinky_x'], info['labels']['enemy_blinky_y'])]
         
-        allowed_side, allowed_vertival = 10, 10
+        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 15, 15, 10, 10
         assigned_transition_dict = {'LEFT_APPROACH': False, 'RIGHT_APPROACH': False,
                                     'UP_APPROACH': False, 'DOWN_APPROACH': False}
         for pos in enemy_position_list:
-            if (player_position[0] < pos[0]) & (pos[0] - player_position[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival):
+            if (player_position[0] < pos[0]) & (pos[0] - player_position[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival2):
                 assigned_transition_dict['RIGHT_APPROACH'] = True
-            if (player_position[0] > pos[0]) & (player_position[0] - pos[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival):
+            if (player_position[0] > pos[0]) & (player_position[0] - pos[0] < allowed_side) & (abs(pos[1] - player_position[1]) < allowed_vertival2):
                 assigned_transition_dict['LEFT_APPROACH'] = True
-            if (player_position[1] < pos[1]) & (pos[1] - player_position[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side):
+            if (player_position[1] < pos[1]) & (pos[1] - player_position[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side2):
                 assigned_transition_dict['DOWN_APPROACH'] = True
-            if (player_position[1] > pos[1]) & (player_position[1] - pos[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side):
+            if (player_position[1] > pos[1]) & (player_position[1] - pos[1] < allowed_vertival) & (abs(pos[0] - player_position[0]) < allowed_side2):
                 assigned_transition_dict['UP_APPROACH'] = True
         
-        print("pacman position", player_position, "enemy position", enemy_position_list)
+        print("pacman position", player_position, "enemy position", enemy_position_list, player1_action_int)
         print(assigned_transition_dict)
 
         for i in self.action_assign[0]:

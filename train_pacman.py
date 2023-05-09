@@ -34,7 +34,7 @@ def setup_parser() -> argparse.ArgumentParser:
                         help='a list of penalties that it is used in no shield (usage: --penalties 0.0 1.0 100.0)')
     parser.add_argument('--pdb', type=bool,
                         help='If enabled, pdb will be launched when there is an exception.')
-    parser.add_argument('--use-shield-while-learning', type=bool, default=True,
+    parser.add_argument('--use-shield-while-learning', type=bool, default=False,
                         help='if you want to use shild while learning, set True')
     parser.add_argument('--use-shield-while-evaluating', type=bool, default=False,
                         help='if you want to use shield while evaluating, set False')

@@ -19,7 +19,8 @@ class ModelFreeShield(metaclass=ABCMeta):
         self.state = self.game.getInitialState()
 
     def preemptive(self, action):
-        #print(self.state, action, "next, you can use", self.win_strategy[(self.state, action)])
+        print(self.state, action)
+        print(self.state, action, "next, you can use", self.win_strategy[(self.state, action)])
         #self.s = copy.copy(self.state)
         #print("self.s is", self.s)
         #print("preemptive", action)

@@ -191,6 +191,8 @@ def run(shield,
         label = f'{shield.__name__}'
         # quick hack, probably better to use is instance here..
         env = shield(env=game, ltl_formula=ltl_formula).get_wrapper()
+        env.env.env._max_episode_steps = 8000
+        pprint.pprint(vars(env.env.env))
         #env = shield(env=Monitor(gym.make(game)), ltl_formula=ltl_formula)
 
         if use_shield_while_evaluation:
@@ -266,7 +268,7 @@ def train(env, label, game, callback, total_steps=int(5e5), learning_rate=1e-4, 
     eval_callback = EvalCallback(eval_env=model.get_env() if eval_env is None else eval_env,
                                  callback_on_new_best=SaveBestShieldCallback(),
                                  best_model_save_path=os.path.join(log_dir, 'best_model'),
-                                 n_eval_episodes=40,
+                                 n_eval_episodes=30,
                                  eval_freq=10000, verbose=1,
                                  deterministic=True, render=False)
                                  
