@@ -18,7 +18,6 @@ class PacmanModelFreeShield:
                                 ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"],
                                 ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO", "NO_MOVE"])
 
-        pprint.pprint(vars(self.game))
         solved_game = solve_game(self.game)
 
         count, i_sub = 0, 0
@@ -30,7 +29,8 @@ class PacmanModelFreeShield:
                 else:
                     winning_strategy[(i+1, j)] = [1]
                     self.game.add_transition(i+1, j, 1, i+1)
-
+        
+        pprint.pprint(vars(self.game))
 
         pprint.pprint(winning_strategy)
         print("THIS IS SSS")
