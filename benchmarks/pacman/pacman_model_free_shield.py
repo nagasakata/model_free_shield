@@ -29,6 +29,7 @@ class PacmanModelFreeShield:
                 else:
                     winning_strategy[(i+1, j)] = [1]
                     self.game.add_transition(i+1, j, 1, i+1)
+                    print("hey! we add transition", i+1, j, 1, i+1)
         
         pprint.pprint(vars(self.game))
 
