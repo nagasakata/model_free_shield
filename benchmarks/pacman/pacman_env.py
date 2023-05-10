@@ -22,7 +22,7 @@ class PacmanEnv(gym.Env):
         self.io_manager = PacmanInputOutputManager()
         self.action_assign = get_assigned_transition(ltl_to_dfa_spot(safety_formula()), 
                                                           ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"], 
-                                                          ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
+                                                          ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO", "NO_MOVE"])
         self.die = 0
         self.max_score = 0
         self.lives_before = 3
@@ -58,7 +58,6 @@ class PacmanEnv(gym.Env):
         print("hey valid_model")
 
     def step(self, player1_action_int: int):
-        print("hey! hey!")
         observation, reward, done, info = self.env.step(player1_action_int)
         self.count += 1
         #print(self.count, "回目")
@@ -82,7 +81,7 @@ class PacmanEnv(gym.Env):
                                (info['labels']['enemy_pinky_x'], info['labels']['enemy_pinky_y']),
                                (info['labels']['enemy_blinky_x'], info['labels']['enemy_blinky_y'])]
         
-        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 15, 15, 10, 10
+        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 12, 12, 5, 5
         assigned_transition_dict = {'LEFT_APPROACH': False, 'RIGHT_APPROACH': False,
                                     'UP_APPROACH': False, 'DOWN_APPROACH': False,
                                     'LEFT_WALL': False, 'RIGHT_WALL': False,
@@ -101,18 +100,18 @@ class PacmanEnv(gym.Env):
 
         print(observation[player_position[1]-1][player_position[0] - 12][0], observation[player_position[1]-1][player_position[0]-5])
         print(observation[player_position[1]+12][player_position[0] - 12][0], observation[player_position[1]+12][player_position[0]-5][0])
-        print(observation[player_position[1]][player_position[0] - 13][0], observation[player_position[1]+11][player_position[0]-13][0])
-        print(observation[player_position[1]][player_position[0] - 4][0], observation[player_position[1]+11][player_position[0]-4][0])
+        print(observation[player_position[1]][player_position[0] - 15][0], observation[player_position[1]+11][player_position[0]-15][0])
+        print(observation[player_position[1]][player_position[0] - 2][0], observation[player_position[1]+11][player_position[0]-2][0])
         if (observation[player_position[1]-1][player_position[0] - 12][0] == 228) or (observation[player_position[1]-1][player_position[0]-5][0]) == 228:
             assigned_transition_dict['UP_WALL'] = True
 
         if (observation[player_position[1]+12][player_position[0] - 12][0] == 228) or (observation[player_position[1]+12][player_position[0]-5][0] == 228):
             assigned_transition_dict['DOWN_WALL'] = True
 
-        if (observation[player_position[1]][player_position[0] - 13][0] == 228) or (observation[player_position[1]+11][player_position[0]-13][0] == 228):
+        if (observation[player_position[1]][player_position[0] - 15][0] == 228) or (observation[player_position[1]+11][player_position[0]-15][0] == 228):
             assigned_transition_dict['LEFT_WALL'] = True
 
-        if (observation[player_position[1]][player_position[0] - 4][0] == 228) or (observation[player_position[1]+11][player_position[0]-4][0] == 228):
+        if (observation[player_position[1]][player_position[0] - 2][0] == 228) or (observation[player_position[1]+11][player_position[0]-2][0] == 228):
             assigned_transition_dict['RIGHT_WALL'] = True
 
 
@@ -122,11 +121,9 @@ class PacmanEnv(gym.Env):
         for i in self.action_assign[0]:
             if self.action_assign[0][i] == assigned_transition_dict:
                 info['p1_action'] = i
-                print(self.action_assign[0][i])
                 break
 
-        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False,
-                            'UP_GO': False, 'DOWN_GO': False}
+        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'NO_MOVE': True}
         if player1_action_int == 0:
             pass
         elif player1_action_int == 1:
@@ -164,7 +161,7 @@ class PacmanEnv(gym.Env):
 
     def disabled(self, action_list):
         forgive_action_list = []
-        action_dict = {0:[], 1:['UP_GO'], 2:['RIGHT_GO'], 3:['LEFT_GO'], 4:['DOWN_GO'], 5:['UP_GO', 'RIGHT_GO'], 6:['UP_GO', 'LEFT_GO'], 7:['DOWN_GO', 'RIGHT_GO'], 8:['DOWN_GO', 'LEFT_GO']}
+        action_dict = {0:['NO_MOVE'], 1:['UP_GO'], 2:['RIGHT_GO'], 3:['LEFT_GO'], 4:['DOWN_GO'], 5:['UP_GO', 'RIGHT_GO'], 6:['UP_GO', 'LEFT_GO'], 7:['DOWN_GO', 'RIGHT_GO'], 8:['DOWN_GO', 'LEFT_GO']}
         
         for preemptive in action_list:
             sub_action = []

@@ -13,6 +13,8 @@ class Observations(Enum):
     LEFT_WALL = 9
     UP_WALL = 10
     DOWN_WALL = 11
+    NO_MOVE = 12
+
 
 
 right_go = f'G ({Observations.RIGHT_APPROACH} → X (!{Observations.RIGHT_GO}))'
@@ -29,9 +31,11 @@ down_wall = f'G ({Observations.DOWN_WALL} → X (!{Observations.DOWN_GO}))'
 
 wall_is_there = f'({right_wall}) ∧ ({left_wall}) ∧ ({up_wall}) ∧ ({down_wall})'
 
+no_move = f'G({Observations.NO_MOVE})'
+
 #remove
-#if_cant_go = f'G (((!{Observations.RIGHT_GO}) ∧ (!{Observations.LEFT_GO}) ∧ (!{Observations.UP_GO}) ∧ (!{Observations.DOWN_GO})) → !((!{Observations.RIGHT_GO}) ∧ (!{Observations.LEFT_GO}) ∧ (!{Observations.UP_GO}) ∧ (!{Observations.DOWN_GO})))'
+#if_cant_go = f'G ((({Observations.RIGHT_APPROACH} ∨ {Observations.RIGHT_WALL}) ∧ ({Observations.LEFT_APPROACH} ∨ {Observations.LEFT_WALL}) ∧ ({Observations.UP_APPROACH} ∨ {Observations.UP_WALL}) ∧ ({Observations.DOWN_APPROACH} ∨ {Observations.DOWN_WALL})) → X (({Observations.RIGHT_GO}) ∨ ({Observations.LEFT_GO}) ∨ ({Observations.UP_GO}) ∨ ({Observations.DOWN_GO})))'
 
 
 def safety_formula():
-    return f'({enemy_approach}) ∧ ({wall_is_there})'
+    return f'({enemy_approach}) ∧ ({wall_is_there}) ∧ ({no_move})'
