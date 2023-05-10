@@ -27,7 +27,7 @@ class ModelFreeShield(metaclass=ABCMeta):
         return self.win_strategy[(self.state, action)]
 
     def move(self, env_action, cont_action):
-        #print("state", self.state, "env_action", env_action, "cont_action", cont_action)
+        print("state", self.state, "env_action", env_action, "cont_action", cont_action)
         '''
         if self.s != self.state:
             print("self.state is", self.state, "self.s is", self.s)
