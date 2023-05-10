@@ -28,7 +28,8 @@ class PacmanModelFreeShield:
                 if (i+1, j) in solved_game[1]:
                     winning_strategy[(i+1, j)] = solved_game[1][(i+1, j)]
                 else:
-                    winning_strategy[(i+1, j)] = [0]
+                    winning_strategy[(i+1, j)] = [1]
+                    self.game.add_transition(i+1, j, 1, i+1)
 
 
         pprint.pprint(winning_strategy)
