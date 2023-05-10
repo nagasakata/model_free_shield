@@ -123,9 +123,9 @@ class PacmanEnv(gym.Env):
                 info['p1_action'] = i
                 break
 
-        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'NO_MOVE': True}
+        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'NO_MOVE': False}
         if player1_action_int == 0:
-            pass
+            cont_action_dict['NO_MOVE'] = True
         elif player1_action_int == 1:
             cont_action_dict['UP_GO'] = True
         elif player1_action_int == 2:
