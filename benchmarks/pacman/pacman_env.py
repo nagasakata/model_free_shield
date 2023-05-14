@@ -81,7 +81,7 @@ class PacmanEnv(gym.Env):
                                (info['labels']['enemy_pinky_x'], info['labels']['enemy_pinky_y']),
                                (info['labels']['enemy_blinky_x'], info['labels']['enemy_blinky_y'])]
         
-        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 12, 12, 5, 5
+        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 10, 10, 5, 5
         assigned_transition_dict = {'LEFT_APPROACH': False, 'RIGHT_APPROACH': False,
                                     'UP_APPROACH': False, 'DOWN_APPROACH': False,
                                     'LEFT_WALL': False, 'RIGHT_WALL': False,
@@ -98,10 +98,6 @@ class PacmanEnv(gym.Env):
                 assigned_transition_dict['UP_APPROACH'] = True
         
 
-        print(observation[player_position[1]-1][player_position[0] - 12][0], observation[player_position[1]-1][player_position[0]-5])
-        print(observation[player_position[1]+12][player_position[0] - 12][0], observation[player_position[1]+12][player_position[0]-5][0])
-        print(observation[player_position[1]][player_position[0] - 15][0], observation[player_position[1]+11][player_position[0]-15][0])
-        print(observation[player_position[1]][player_position[0] - 2][0], observation[player_position[1]+11][player_position[0]-2][0])
         if (observation[player_position[1]-1][player_position[0] - 12][0] == 228) or (observation[player_position[1]-1][player_position[0]-5][0]) == 228:
             assigned_transition_dict['UP_WALL'] = True
 
@@ -123,7 +119,7 @@ class PacmanEnv(gym.Env):
                 info['p1_action'] = i
                 break
 
-        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'NO_MOVE': False}
+        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'NO_MOVE': True}
         if player1_action_int == 0:
             cont_action_dict['NO_MOVE'] = True
         elif player1_action_int == 1:
@@ -185,7 +181,5 @@ class PacmanEnv(gym.Env):
         for act in list(action_dict.keys()):
             if act not in forgive_action_list:
                 ban_action.append(act)
-
-        print(ban_action)
 
         return ban_action

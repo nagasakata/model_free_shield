@@ -19,15 +19,14 @@ class ModelFreeShield(metaclass=ABCMeta):
         self.state = self.game.getInitialState()
 
     def preemptive(self, action):
-        print(self.state, action)
-        print(self.state, action, "next, you can use", self.win_strategy[(self.state, action)])
+        #print("now state", self.state, "now action", action, "next, you can use", self.win_strategy[(self.state, action)])
         #self.s = copy.copy(self.state)
         #print("self.s is", self.s)
         #print("preemptive", action)
         return self.win_strategy[(self.state, action)]
 
     def move(self, env_action, cont_action):
-        print("state", self.state, "env_action", env_action, "cont_action", cont_action)
+        #print("state", self.state, "env_action", env_action, "cont_action", cont_action)
         '''
         if self.s != self.state:
             print("self.state is", self.state, "self.s is", self.s)
