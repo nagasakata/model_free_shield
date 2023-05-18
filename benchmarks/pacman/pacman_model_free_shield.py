@@ -16,11 +16,10 @@ class PacmanModelFreeShield:
 
         self.game = dfa_to_game(ltl_to_dfa_spot(ltl_formula), 
                                 ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"],
-                                ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO", "NO_MOVE"])
+                                ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
 
         solved_game = solve_game(self.game)
-
-        count, i_sub = 0, 0
+        '''
         winning_strategy = {}
         for i in range(16):
             for j in range(255):
@@ -37,11 +36,11 @@ class PacmanModelFreeShield:
 
         pprint.pprint(winning_strategy)
         print("THIS IS SSS")
-
+        '''
         train_env = Monitor(gym.make(env))
         train_env.env._max_episode_steps = 4000
 
-        self.wrapper = ModelFreeShieldWrapper(train_env, ModelFreeShield(self.game, solved_game[0], winning_strategy))
+        self.wrapper = ModelFreeShieldWrapper(train_env, ModelFreeShield(self.game, solved_game[0], solved_game[1]))
 
 
     def get_wrapper(self):

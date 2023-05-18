@@ -22,7 +22,7 @@ class PacmanEnv(gym.Env):
         self.io_manager = PacmanInputOutputManager()
         self.action_assign = get_assigned_transition(ltl_to_dfa_spot(safety_formula()), 
                                                           ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"], 
-                                                          ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO", "NO_MOVE"])
+                                                          ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
         self.die = 0
         self.max_score = 0
         self.lives_before = 3
@@ -119,9 +119,9 @@ class PacmanEnv(gym.Env):
                 info['p1_action'] = i
                 break
 
-        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'NO_MOVE': True}
+        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False}
         if player1_action_int == 0:
-            cont_action_dict['NO_MOVE'] = True
+            pass
         elif player1_action_int == 1:
             cont_action_dict['UP_GO'] = True
         elif player1_action_int == 2:
@@ -157,7 +157,7 @@ class PacmanEnv(gym.Env):
 
     def disabled(self, action_list):
         forgive_action_list = []
-        action_dict = {0:['NO_MOVE'], 1:['UP_GO'], 2:['RIGHT_GO'], 3:['LEFT_GO'], 4:['DOWN_GO'], 5:['UP_GO', 'RIGHT_GO'], 6:['UP_GO', 'LEFT_GO'], 7:['DOWN_GO', 'RIGHT_GO'], 8:['DOWN_GO', 'LEFT_GO']}
+        action_dict = {0:[], 1:['UP_GO'], 2:['RIGHT_GO'], 3:['LEFT_GO'], 4:['DOWN_GO'], 5:['UP_GO', 'RIGHT_GO'], 6:['UP_GO', 'LEFT_GO'], 7:['DOWN_GO', 'RIGHT_GO'], 8:['DOWN_GO', 'LEFT_GO']}
         
         for preemptive in action_list:
             sub_action = []

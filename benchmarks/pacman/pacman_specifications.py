@@ -17,17 +17,17 @@ class Observations(Enum):
 
 
 
-right_go = f'G ({Observations.RIGHT_APPROACH} → X ((!{Observations.RIGHT_GO}) ∧ ({Observations.NO_MOVE})))'
-left_go = f'G ({Observations.LEFT_APPROACH} → X ((!{Observations.LEFT_GO}) ∧ ({Observations.NO_MOVE})))'
-up_go = f'G ({Observations.UP_APPROACH} → X ((!{Observations.UP_GO}) ∧ ({Observations.NO_MOVE})))'
-down_go = f'G ({Observations.DOWN_APPROACH} → X ((!{Observations.DOWN_GO}) ∧ ({Observations.NO_MOVE})))'
+right_go = f'G ({Observations.RIGHT_APPROACH} → X (!{Observations.RIGHT_GO}))'
+left_go = f'G ({Observations.LEFT_APPROACH} → X (!{Observations.LEFT_GO}))'
+up_go = f'G ({Observations.UP_APPROACH} → X (!{Observations.UP_GO}))'
+down_go = f'G ({Observations.DOWN_APPROACH} → X (!{Observations.DOWN_GO}))'
 
 enemy_approach = f'({right_go}) ∧ ({left_go}) ∧ ({up_go}) ∧ ({down_go})'
 
-right_wall = f'G ({Observations.RIGHT_WALL} → X ((!{Observations.RIGHT_GO}) ∧ ({Observations.NO_MOVE})))'
-left_wall = f'G ({Observations.LEFT_WALL} → X ((!{Observations.LEFT_GO}) ∧ ({Observations.NO_MOVE})))'
-up_wall = f'G ({Observations.UP_WALL} → X ((!{Observations.UP_GO}) ∧ ({Observations.NO_MOVE})))'
-down_wall = f'G ({Observations.DOWN_WALL} → X ((!{Observations.DOWN_GO}) ∧ ({Observations.NO_MOVE})))'
+right_wall = f'G ({Observations.RIGHT_WALL} → X (!{Observations.RIGHT_GO}))'
+left_wall = f'G ({Observations.LEFT_WALL} → X (!{Observations.LEFT_GO}))'
+up_wall = f'G ({Observations.UP_WALL} → X (!{Observations.UP_GO}))'
+down_wall = f'G ({Observations.DOWN_WALL} → X (!{Observations.DOWN_GO}))'
 
 wall_is_there = f'({right_wall}) ∧ ({left_wall}) ∧ ({up_wall}) ∧ ({down_wall})'
 
