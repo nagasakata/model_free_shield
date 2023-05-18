@@ -17,9 +17,10 @@ def solve_game(game:SafetyGame):
         for (start, p1_now, p2_now) in game.transitions:
             for  p1_action in action_1:
                 for p2_action in action_2:
-                    if (game.transitions(start, p1_now, p2_now), p1_action, p2_action) in game.transitions:
+                    if (game.transitions[(start, p1_now, p2_now)], p1_action, p2_action) in game.transitions:
                         if (start, p1_now) in winning_strategy:
-                            winning_strategy[(start, p1_now)].append(p2_action)
+                            if not p2_action in winning_strategy[(start, p1_now)]:
+                                winning_strategy[(start, p1_now)].append(p2_action)
                         else:
                             winning_strategy[(start, p1_now)] = [p2_action]
 
