@@ -1,18 +1,15 @@
-import gym
-from atari_representation_learning_master.atariari.benchmark.wrapper import AtariARIWrapper
-env = AtariARIWrapper(gym.make('MsPacmanNoFrameskip-v4'))
-obs = env.reset()
+from benchmarks.pacman.pacman_specifications import safety_formula_try
+from src.logic.ltl2dfa_translator import ltl_to_dfa_spot
+from src.logic.dfa2game_translator import dfa_to_game
+from src.logic.solve_game import solve_game
 
-count = 0
+from pprint import pprint
 
-for _ in range(10000):
-    observation, reward, terminated, info = env.step(env.action_space.sample())
+dfa = ltl_to_dfa_spot(safety_formula_try())
+pprint(dfa)
 
-    print(info['lives'], info['labels']['player_x'], info['labels']['player_y'], terminated, count)
+game = dfa_to_game(dfa, ['LEFT_APPROACH', 'RIGHT_APPROACH'], ['LEFT_GO', 'RIGHT_GO'])
+pprint(game)
 
-    count += 1
-
-    if terminated:
-        env.reset()
-
-env.close()
+solved_game = solve_game(game)
+pprint(solved_game)

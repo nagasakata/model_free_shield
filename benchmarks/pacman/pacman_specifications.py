@@ -39,3 +39,6 @@ wall_is_there = f'({right_wall}) ∧ ({left_wall}) ∧ ({up_wall}) ∧ ({down_wa
 
 def safety_formula():
     return f'({enemy_approach}) ∧ ({wall_is_there})'
+
+def safety_formula_try():
+    return f'({right_go}) ∧ ({left_go})'
