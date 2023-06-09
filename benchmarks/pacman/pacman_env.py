@@ -98,7 +98,7 @@ class PacmanEnv(gym.Env):
                 assigned_transition_dict['UP_APPROACH'] = True
         
 
-        if (observation[player_position[1]-1][player_position[0] - 12][0] == 228) or (observation[player_position[1]-1][player_position[0]-5][0]) == 228:
+        if (observation[player_position[1]-1][player_position[0] - 12][0] == 228) or (observation[player_position[1]-1][player_position[0]-5][0] == 228):
             assigned_transition_dict['UP_WALL'] = True
 
         if (observation[player_position[1]+12][player_position[0] - 12][0] == 228) or (observation[player_position[1]+12][player_position[0]-5][0] == 228):

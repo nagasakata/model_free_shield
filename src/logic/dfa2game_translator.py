@@ -50,7 +50,6 @@ def assign_transition(transitions:dict, player1:dict, player2:dict, player1_alph
         for pro_bool in transitions[start_state]:
             will_translate_sub, will_translate = [], []
             will_translate_sub.append(dict(pro_bool))
-            trans_len = len(pro_bool)
 
             for trans_sub in will_translate_sub:
                 for alphabet1 in player1_alphabet:

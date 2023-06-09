@@ -14,9 +14,17 @@ class PacmanModelFreeShield:
     def __init__(self, env, ltl_formula):
         self.env = env
 
-        self.game = dfa_to_game(ltl_to_dfa_spot(ltl_formula), 
+        dfa = ltl_to_dfa_spot(ltl_formula)
+
+        print("this is dfa")
+        pprint.pprint(vars(dfa))
+
+        self.game = dfa_to_game(dfa, 
                                 ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"],
                                 ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
+
+        print("this is game")
+        pprint.pprint(vars(self.game))
 
         solved_game = solve_game(self.game)
         '''

@@ -6,10 +6,10 @@ from src.logic.solve_game import solve_game
 from pprint import pprint
 
 dfa = ltl_to_dfa_spot(safety_formula_try())
-pprint(dfa)
+pprint(vars(dfa))
 
-game = dfa_to_game(dfa, ['LEFT_APPROACH', 'RIGHT_APPROACH'], ['LEFT_GO', 'RIGHT_GO'])
-pprint(game)
+game = dfa_to_game(dfa, ['LEFT_APPROACH', 'RIGHT_APPROACH', 'LEFT_WALL', 'RIGHT_WALL'], ['LEFT_GO', 'RIGHT_GO'])
+pprint(vars(game))
 
 solved_game = solve_game(game)
 pprint(solved_game)
