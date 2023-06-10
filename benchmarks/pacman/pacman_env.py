@@ -81,7 +81,7 @@ class PacmanEnv(gym.Env):
                                (info['labels']['enemy_pinky_x'], info['labels']['enemy_pinky_y']),
                                (info['labels']['enemy_blinky_x'], info['labels']['enemy_blinky_y'])]
         
-        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 10, 10, 5, 5
+        allowed_side, allowed_vertival, allowed_side2, allowed_vertival2 = 15, 15, 7, 7
         assigned_transition_dict = {'LEFT_APPROACH': False, 'RIGHT_APPROACH': False,
                                     'UP_APPROACH': False, 'DOWN_APPROACH': False,
                                     'LEFT_WALL': False, 'RIGHT_WALL': False,
