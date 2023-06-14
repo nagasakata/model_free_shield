@@ -22,7 +22,7 @@ class PacmanEnv(gym.Env):
         self.io_manager = PacmanInputOutputManager()
         self.action_assign = get_assigned_transition(ltl_to_dfa_spot(safety_formula()), 
                                                           ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"], 
-                                                          ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
+                                                          ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO", "UR_GO", "UL_GO", "DR_GO", "DL_GO"])
         self.die = 0
         self.max_score = 0
         self.lives_before = 3

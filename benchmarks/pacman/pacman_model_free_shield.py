@@ -21,7 +21,7 @@ class PacmanModelFreeShield:
 
         self.game = dfa_to_game(dfa, 
                                 ["LEFT_APPROACH", "RIGHT_APPROACH", "UP_APPROACH", "DOWN_APPROACH", "LEFT_WALL", "RIGHT_WALL", "UP_WALL", "DOWN_WALL"],
-                                ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO"])
+                                ["LEFT_GO", "RIGHT_GO", "UP_GO", "DOWN_GO", "UR_GO", "UL_GO", "DR_GO", "DL_GO"])
 
         print("this is game")
         pprint.pprint(vars(self.game))

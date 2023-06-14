@@ -13,9 +13,10 @@ class Observations(Enum):
     LEFT_WALL = 9
     UP_WALL = 10
     DOWN_WALL = 11
-    NO_MOVE = 12
-
-
+    UR_GO = 12
+    UL_GO = 13
+    DR_GO = 14
+    DL_GO = 15
 
 right_go = f'G ({Observations.RIGHT_APPROACH} → X (!{Observations.RIGHT_GO}))'
 left_go = f'G ({Observations.LEFT_APPROACH} → X (!{Observations.LEFT_GO}))'
@@ -31,14 +32,15 @@ down_wall = f'G ({Observations.DOWN_WALL} → X (!{Observations.DOWN_GO}))'
 
 wall_is_there = f'({right_wall}) ∧ ({left_wall}) ∧ ({up_wall}) ∧ ({down_wall})'
 
-#no_move = f'G({Observations.NO_MOVE})'
+ur_go = f'G (({Observations.RIGHT_APPROACH} ∨ {Observations.UP_APPROACH} ∨ ({Observations.RIGHT_WALL} ∧ {Observations.UP_WALL})) → X (!{Observations.UR_GO}))'
+ul_go = f'G (({Observations.LEFT_APPROACH} ∨ {Observations.UP_APPROACH} ∨ ({Observations.LEFT_WALL} ∧ {Observations.UP_WALL})) → X (!{Observations.UL_GO}))'
+dr_go = f'G (({Observations.RIGHT_APPROACH} ∨ {Observations.DOWN_APPROACH} ∨ ({Observations.RIGHT_WALL} ∧ {Observations.DOWN_WALL})) → X (!{Observations.DR_GO}))'
+dl_go = f'G (({Observations.LEFT_APPROACH} ∨ {Observations.DOWN_APPROACH} ∨ ({Observations.LEFT_WALL} ∧ {Observations.DOWN_WALL})) → X (!{Observations.DL_GO}))'
 
-#remove
-#if_cant_go = f'G ((({Observations.RIGHT_APPROACH} ∨ {Observations.RIGHT_WALL}) ∧ ({Observations.LEFT_APPROACH} ∨ {Observations.LEFT_WALL}) ∧ ({Observations.UP_APPROACH} ∨ {Observations.UP_WALL}) ∧ ({Observations.DOWN_APPROACH} ∨ {Observations.DOWN_WALL})) → X !(({Observations.RIGHT_GO}) ∨ ({Observations.LEFT_GO}) ∨ ({Observations.UP_GO}) ∨ ({Observations.DOWN_GO})))'
-
+twoway_go = f'({ur_go}) ∧ ({ul_go}) ∧ ({dr_go}) ∧ ({dl_go})'
 
 def safety_formula():
-    return f'({enemy_approach}) ∧ ({wall_is_there})'
+    return f'({enemy_approach}) ∧ ({wall_is_there} ∧ ({twoway_go})'
 
 def safety_formula_try():
     return f'({right_go}) ∧ ({left_go} ∧ {right_wall}) ∧ ({left_wall})'
