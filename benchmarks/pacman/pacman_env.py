@@ -122,7 +122,7 @@ class PacmanEnv(gym.Env):
                 info['p1_action'] = i
                 break
 
-        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False}
+        cont_action_dict = {'LEFT_GO': False, 'RIGHT_GO': False, 'UP_GO': False, 'DOWN_GO': False, 'UR_GO': False, 'UL_GO': False, 'DR_GO': False, 'DL_GO': False}
         if player1_action_int == 0:
             pass
         elif player1_action_int == 1:
@@ -136,15 +136,19 @@ class PacmanEnv(gym.Env):
         elif player1_action_int == 5:
             cont_action_dict['UP_GO'] = True
             cont_action_dict['RIGHT_GO'] = True
+            cont_action_dict['UR_GO'] = True
         elif player1_action_int == 6:
             cont_action_dict['UP_GO'] = True
             cont_action_dict['LEFT_GO'] = True
+            cont_action_dict['UL_GO'] = True
         elif player1_action_int == 7:
             cont_action_dict['DOWN_GO'] = True
             cont_action_dict['RIGHT_GO'] = True
+            cont_action_dict['DR_GO'] = True
         elif player1_action_int == 8:
             cont_action_dict['DOWN_GO'] = True
             cont_action_dict['LEFT_GO'] = True
+            cont_action_dict['DL_GO'] = True
 
         for i in self.action_assign[1]:
             if self.action_assign[1][i] == cont_action_dict:
@@ -160,7 +164,7 @@ class PacmanEnv(gym.Env):
 
     def disabled(self, action_list):
         forgive_action_list = []
-        action_dict = {0:[], 1:['UP_GO'], 2:['RIGHT_GO'], 3:['LEFT_GO'], 4:['DOWN_GO'], 5:['UP_GO', 'RIGHT_GO'], 6:['UP_GO', 'LEFT_GO'], 7:['DOWN_GO', 'RIGHT_GO'], 8:['DOWN_GO', 'LEFT_GO']}
+        action_dict = {0:[], 1:['UP_GO'], 2:['RIGHT_GO'], 3:['LEFT_GO'], 4:['DOWN_GO'], 5:['UR_GO'], 6:['UL_GO'], 7:['DR_GO'], 8:['DL_GO']}
         
         for preemptive in action_list:
             sub_action = []
