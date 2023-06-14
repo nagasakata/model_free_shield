@@ -18,10 +18,10 @@ class Observations(Enum):
     DR_GO = 14
     DL_GO = 15
 
-right_go = f'G ({Observations.RIGHT_APPROACH} → X (!{Observations.RIGHT_GO}))'
-left_go = f'G ({Observations.LEFT_APPROACH} → X (!{Observations.LEFT_GO}))'
-up_go = f'G ({Observations.UP_APPROACH} → X (!{Observations.UP_GO}))'
-down_go = f'G ({Observations.DOWN_APPROACH} → X (!{Observations.DOWN_GO}))'
+right_go = f'G ({Observations.RIGHT_APPROACH} → X (!{Observations.RIGHT_GO}) ∧ X (!{Observations.UR_GO}) ∧ X (!{Observations.DR_GO}))'
+left_go = f'G ({Observations.LEFT_APPROACH} → X (!{Observations.LEFT_GO}) ∧ X (!{Observations.UL_GO}) ∧ X (!{Observations.DL_GO}))'
+up_go = f'G ({Observations.UP_APPROACH} → X (!{Observations.UP_GO}) ∧ X (!{Observations.UR_GO}) ∧ X (!{Observations.UL_GO}))'
+down_go = f'G ({Observations.DOWN_APPROACH} → X (!{Observations.DOWN_GO}) ∧ X (!{Observations.DL_GO}) ∧ X (!{Observations.DR_GO}))'
 
 enemy_approach = f'({right_go}) ∧ ({left_go}) ∧ ({up_go}) ∧ ({down_go})'
 
@@ -32,10 +32,10 @@ down_wall = f'G ({Observations.DOWN_WALL} → X (!{Observations.DOWN_GO}))'
 
 wall_is_there = f'({right_wall}) ∧ ({left_wall}) ∧ ({up_wall}) ∧ ({down_wall})'
 
-ur_go = f'G (({Observations.RIGHT_APPROACH} ∨ {Observations.UP_APPROACH} ∨ ({Observations.RIGHT_WALL} ∧ {Observations.UP_WALL})) → X (!{Observations.UR_GO}))'
-ul_go = f'G (({Observations.LEFT_APPROACH} ∨ {Observations.UP_APPROACH} ∨ ({Observations.LEFT_WALL} ∧ {Observations.UP_WALL})) → X (!{Observations.UL_GO}))'
-dr_go = f'G (({Observations.RIGHT_APPROACH} ∨ {Observations.DOWN_APPROACH} ∨ ({Observations.RIGHT_WALL} ∧ {Observations.DOWN_WALL})) → X (!{Observations.DR_GO}))'
-dl_go = f'G (({Observations.LEFT_APPROACH} ∨ {Observations.DOWN_APPROACH} ∨ ({Observations.LEFT_WALL} ∧ {Observations.DOWN_WALL})) → X (!{Observations.DL_GO}))'
+ur_go = f'G (({Observations.RIGHT_WALL} ∧ {Observations.UP_WALL}) → X (!{Observations.UR_GO}))'
+ul_go = f'G (({Observations.LEFT_WALL} ∧ {Observations.UP_WALL}) → X (!{Observations.UL_GO}))'
+dr_go = f'G (({Observations.RIGHT_WALL} ∧ {Observations.DOWN_WALL}) → X (!{Observations.DR_GO}))'
+dl_go = f'G ({Observations.LEFT_WALL} ∧ {Observations.DOWN_WALL}) → X (!{Observations.DL_GO}))'
 
 twoway_go = f'({ur_go}) ∧ ({ul_go}) ∧ ({dr_go}) ∧ ({dl_go})'
 
